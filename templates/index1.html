@@ -1,0 +1,194 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azure CSV CRUD App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Azure CSV CRUD App</h1>
+        <hr>
+        <h2>Upload CSV</h2>
+        <form id="upload-csv-form" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="file" name="file" class="form-control-file" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Upload CSV</button>
+        </form>
+        <hr>
+        <h2>Add Person</h2>
+        <form id="add-person-form">
+            <div class="form-group">
+                <input type="text" name="name" class="form-control" placeholder="Name" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="salary" class="form-control" placeholder="Salary" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="room" class="form-control" placeholder="Room" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="telnum" class="form-control" placeholder="Telnum" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="picture" class="form-control" placeholder="Picture" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="keywords" class="form-control" placeholder="Keywords" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Person</button>
+        </form>
+        <hr>
+        <h2>Get Person</h2>
+        <form id="get-person-form">
+            <div class="form-group">
+                <input type="text" name="name" class="form-control" placeholder="Name" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Get Person</button>
+        </form>
+        <div id="person-details" class="mt-3"></div>
+        <hr>
+        <h2>Update Person</h2>
+        <form id="update-person-form">
+            <div class="form-group">
+                <input type="text" name="name" class="form-control" placeholder="Name" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="salary" class="form-control" placeholder="New Salary">
+            </div>
+            <div class="form-group">
+                <input type="text" name="room" class="form-control" placeholder="New Room">
+            </div>
+            <div class="form-group">
+                <input type="text" name="telnum" class="form-control" placeholder="New Telnum">
+            </div>
+            <div class="form-group">
+                <input type="text" name="picture" class="form-control" placeholder="New Picture">
+            </div>
+            <div class="form-group">
+                <input type="text" name="keywords" class="form-control" placeholder="New Keywords">
+            </div>
+            <button type="submit" class="btn btn-primary">Update Person</button>
+        </form>
+        <hr>
+        <h2>Delete Person</h2>
+        <form id="delete-person-form">
+            <div class="form-group">
+                <input type="text" name="name" class="form-control" placeholder="Name" required>
+            </div>
+            <button type="submit" class="btn btn-danger">Delete Person</button>
+        </form>
+        <hr>
+        <h2>Upload Picture</h2>
+        <form id="upload-picture-form" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="file" name="file" class="form-control-file" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Upload Picture</button>
+        </form>
+        <hr>
+        <h2>Get Picture</h2>
+        <form id="get-picture-form">
+            <div class="form-group">
+                <input type="text" name="filename" class="form-control" placeholder="Filename" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Get Picture</button>
+        </form>
+        <div id="picture-display" class="mt-3"></div>
+    </div>
+    <script>
+        document.getElementById('upload-csv-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const response = await fetch('/upload_csv', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.text();
+            alert(result);
+        });
+
+        document.getElementById('add-person-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            const response = await fetch('/add_person', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            const result = await response.text();
+            alert(result);
+        });
+
+        document.getElementById('get-person-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = e.target.name.value;
+            const response = await fetch(`/get_person/${name}`, {
+                method: 'GET'
+            });
+            const person = await response.json();
+            document.getElementById('person-details').innerText = JSON.stringify(person, null, 2);
+        });
+
+        document.getElementById('update-person-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const name = formData.get('name');
+            formData.delete('name');
+            const data = Object.fromEntries(formData);
+            const response = await fetch(`/update_person/${name}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            const result = await response.text();
+            alert(result);
+        });
+
+        document.getElementById('delete-person-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = e.target.name.value;
+            const response = await fetch(`/delete_person/${name}`, {
+                method: 'DELETE'
+            });
+            const result = await response.text();
+            alert(result);
+        });
+
+        document.getElementById('upload-picture-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const response = await fetch('/upload_picture', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.text();
+            alert(result);
+        });
+
+        document.getElementById('get-picture-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const filename = e.target.filename.value;
+            const response = await fetch(`/get_picture/${filename}`, {
+                method: 'GET'
+            });
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            const img = document.createElement('img');
+            img.src = url;
+            img.className = 'img-fluid';
+            document.getElementById('picture-display').innerHTML = '';
+            document.getElementById('picture-display').appendChild(img);
+        });
+    </script>
+</body>
+</html>

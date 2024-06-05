@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Picture</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Get Picture</h1>
+        <form id="get-picture-form">
+            <div class="form-group">
+                <input type="text" name="filename" class="form-control" placeholder="Filename" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Get Picture</button>
+        </form>
+        <div id="picture-display" class="mt-3"></div>
+    </div>
+    <script>
+        document.getElementById('get-picture-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const filename = e.target.filename.value;
+            const response = await fetch(`/get_picture/${filename}`, {
+                method: 'GET'
+            });
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            const img = document.createElement('img');
+            img.src = url;
+            img.className = 'img-fluid';
+            document.getElementById('picture-display').innerHTML = '';
+            document.getElementById('picture-display').appendChild(img);
+        });
+    </script>
+</body>
+</html>

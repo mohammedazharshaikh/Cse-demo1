@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Person</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Get Person</h1>
+        <form id="get-person-form">
+            <div class="form-group">
+                <input type="text" name="name" class="form-control" placeholder="Name" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Get Person</button>
+        </form>
+        <div id="person-details" class="mt-3"></div>
+    </div>
+    <script>
+        document.getElementById('get-person-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = e.target.name.value;
+            const response = await fetch(`/get_person/${name}`, {
+                method: 'GET'
+            });
+            const person = await response.json();
+            document.getElementById('person-details').innerText = JSON.stringify(person, null, 2);
+        });
+    </script>
+</body>
+</html>
