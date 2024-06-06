@@ -1,0 +1,36 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search for a Person</title>
+</head>
+<body>
+    <h1>Search for a Person</h1>
+    <form method="POST">
+        <input type="text" name="name" placeholder="Enter name" required>
+        <button type="submit">Search</button>
+    </form>
+    {% if image_url %}
+        <h2>Result:</h2>
+        <img src="{{ image_url }}" alt="Person's Image">
+    {% endif %}
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Image</title>
+</head>
+<body>
+    <h1>Search for an Image by Name</h1>
+    <form method="POST">
+        <label for="name">Enter Name:</label>
+        <input type="text" id="name" name="name" required>
+        <button type="submit">Search</button>
+    </form>
+</body>
+</html>

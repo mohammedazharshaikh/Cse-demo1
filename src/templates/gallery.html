@@ -1,0 +1,42 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery of Salaries < $99,000</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Gallery of Images for Salaries Less Than $99,000</h1>
+    <div class="row">
+        {% for image in images %}
+            <div class="col-md-4">
+                <img src="{{ image }}" alt="Image" class="img-fluid">
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Gallery</title>
+</head>
+<body>
+    <h1>Image Gallery</h1>
+    {% if images %}
+        {% for image in images %}
+            <div>
+                <img src="{{ image }}" alt="Image" style="width: 200px;">
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No images found.</p>
+    {% endif %}
+</body>
+</html>
+
+

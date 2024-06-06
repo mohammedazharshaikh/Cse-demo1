@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload new File</title>
+</head>
+<body>
+    <h1>Upload new File</h1>
+    <form action="" method="post" enctype="multipart/form-data">
+        <input type="text" name="name" placeholder="Enter your name" required>
+        <input type="file" name="file" required>
+        <input type="submit" value="Upload">
+    </form>
+</body>
+</html>
+
+
+
+<!-- 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload and Replace Image</title>
+</head>
+<body>
+    <h1>Upload and Replace Image for a Person</h1>
+    {% if message %}
+        <p><strong>{{ message }}</strong></p>
+    {% endif %}
+    <form action="/" method="post" enctype="multipart/form-data">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" placeholder="Enter name to search" required><br><br>
+        <label for="file">Select image to upload:</label>
+        <input type="file" name="file" id="file" accept="image/*" required><br><br>
+        <input type="submit" value="Upload Image">
+    </form>
+</body>
+</html> -->
